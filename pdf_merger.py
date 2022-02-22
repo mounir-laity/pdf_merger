@@ -59,20 +59,23 @@ class PDFMerger(Tk):
         self.mainloop()
 
     def merge(self, result_name: str):
-        self.withdraw()
-        file_names = askopenfilenames()
-        ends_with_pdf = result_name.endswith(".pdf")
-        for file_name in file_names:
-            self.merger.append(file_name)
-        if ends_with_pdf:
-            self.merger.write(result_name)
-            self.result_name = result_name
-        else:
-            self.merger.write(result_name + ".pdf")
-            self.result_name = result_name + ".pdf"
-        self.merger.close()
-        self.open_button["state"] = NORMAL
-        self.deiconify()
+        try:
+            self.withdraw()
+            file_names = askopenfilenames()
+            ends_with_pdf = result_name.endswith(".pdf")
+            for file_name in file_names:
+                self.merger.append(file_name)
+            if ends_with_pdf:
+                self.merger.write(result_name)
+                self.result_name = result_name
+            else:
+                self.merger.write(result_name + ".pdf")
+                self.result_name = result_name + ".pdf"
+            self.merger.close()
+            self.open_button["state"] = NORMAL
+            self.deiconify()
+        except AttributeError:
+            exit(1)
 
     def slugify(self, value, allow_unicode=False):
         """Taken from https://github.com/django/django/blob/master/django/utils/text.py
