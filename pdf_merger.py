@@ -22,7 +22,7 @@ class PDFMerger(Tk):
         y_window = screen_height // 2 - height // 2
         self.geometry("%dx%d+%d+%d" % (width, height, x_window, y_window))
 
-        self.merger = PdfFileMerger()
+        self.merger = PdfFileMerger(strict=False)
         self.result_name = "."
 
         self.choose_name_label = Label(
